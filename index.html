@@ -1,0 +1,150 @@
+<html>
+    <head>
+        <title>Piano</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <script src="https://npmcdn.com/tone@0.6.1/build/Tone.min.js"></script>
+        <script src="https://npmcdn.com/react-towel@2/umd/react-towel.js"></script>
+        <script src="https://code.jquery.com/pep/0.4.1/pep.js"></script>
+        <script type="text/babel">
+            const Notes = React.createClass({
+                getInitialState: function () {
+                    return {
+                        current: 0,
+                        notes: ['ukko-nooa.png', 'tahtonen.jpg']
+                    }
+                },
+                click: function () {
+                    const next = this.state.current + 1 < this.state.notes.length
+                        ? this.state.current + 1
+                        : 0;
+                    this.setState({ current: next, notes: this.state.notes })
+                },
+                render: function () {
+                    return <div className="notes">
+                            <img src={this.state.notes[this.state.current]} onClick={this.click} />
+                        </div>
+                }
+            })
+
+            class Piano extends React.Component {
+                constructor(props) {
+                    super(props)
+                    this.synth = new Tone.SimpleSynth().toMaster()
+                }
+                play(note) {
+                    this.synth.triggerAttack(note)
+                }
+                release() {
+                    this.synth.triggerRelease()
+                }
+                render() {
+                    return <div className="piano">
+                            <Key onPress={this.play.bind(this)} onRelease={this.release.bind(this)} note="C4" />
+                            <Key onPress={this.play.bind(this)} onRelease={this.release.bind(this)} note="D4" />
+                            <Key onPress={this.play.bind(this)} onRelease={this.release.bind(this)} note="E4" />
+                            <Key onPress={this.play.bind(this)} onRelease={this.release.bind(this)} note="F4" />
+                            <Key onPress={this.play.bind(this)} onRelease={this.release.bind(this)} note="G4" />
+                            <Key onPress={this.play.bind(this)} onRelease={this.release.bind(this)} note="A4" />
+
+                            <Key onPress={this.play.bind(this)} onRelease={this.release.bind(this)} note="C5" />
+                            <Key onPress={this.play.bind(this)} onRelease={this.release.bind(this)} note="D5" />
+                            <Key onPress={this.play.bind(this)} onRelease={this.release.bind(this)} note="E5" />
+                            <Key onPress={this.play.bind(this)} onRelease={this.release.bind(this)} note="F5" />
+                            <Key onPress={this.play.bind(this)} onRelease={this.release.bind(this)} note="G5" />
+                            <Key onPress={this.play.bind(this)} onRelease={this.release.bind(this)} note="A5" />
+                        </div>
+                }
+            }
+
+            const Key = React.createClass({
+                getInitialState: function () {
+                    return { pressed: false }
+                },
+                componentDidMount: function() {
+                    /**
+                     * Use PEP (Pointer Events Polyfill) to detect touches that move accross dom elements.
+                     * (requires that a touch-action attribute is present in html to activate it)
+                     */
+                    ReactDOM.findDOMNode(this).addEventListener('pointerdown', this.press)
+                    ReactDOM.findDOMNode(this).addEventListener('pointerup', this.release)
+                    ReactDOM.findDOMNode(this).addEventListener('pointerenter', this.press)
+                    ReactDOM.findDOMNode(this).addEventListener('pointerleave', this.release)
+                    ReactDOM.findDOMNode(this).addEventListener('pointercancel', this.release)
+                },
+                press: function (e) {
+                    // When not on touch device, filter out events when mouse button not pressed
+                    const isTouchDevice = 'ontouchstart' in window.document.documentElement;
+                    if (this.state.pressed || (!isTouchDevice && e.buttons !== 1)) {
+                        return
+                    }
+                    this.setState({ pressed: true })
+                    this.props.onPress(this.props.note)
+                },
+                release: function () {
+                    this.setState({ pressed: false })
+                    this.props.onRelease(this.props.note)
+                },
+                getClassName: function () {
+                    let classes = ['key', this.props.note[0], 'o' + this.props.note[1]]
+                    if (this.state.pressed) {
+                        classes.push('down')
+                    }
+                    return classes.join(' ')
+                },
+                render: function () {
+                    return <a className={this.getClassName()}><span/></a>
+                }
+            });
+
+            ReactDOM.render(
+                <container><Notes /><Piano /></container>,
+                document.getElementById('root')
+            )
+        </script>
+        <style type="text/css">
+            @import url(http://fonts.googleapis.com/css?family=Open+Sans);
+            html, body { height: 100%; margin: 0; }
+            container { height: 100%; display: flex; flex-direction: column; }
+            container > * { flex: 1 100%; }
+            .notes { text-align: center; }
+            .notes > img { max-width: 100%; max-height: 50vh; }
+            .piano { display: flex; flex-direction: row; padding: 2vh; background: #222; }
+            .piano > * { flex: 1 100%; display: block; }
+            .key {
+                position: relative;
+                display: block;
+                background: white;
+                border: 2px solid #333;
+                border-top: none;
+                border-radius: 1vw;
+                border-bottom-right-radius: 3vw;
+                border-bottom-left-radius: 3vw;
+                margin-bottom: 1vh;
+            }
+            .key span { position: absolute; bottom: 2vh; left: 0; right: 0;
+                text-align: center; font: 3vw "Open Sans",sans-serif;
+                font-weight: bold; color: white;
+            }
+            .key.down { margin-bottom: 0; box-shadow: inset 0 -3vh 7vw rgba(0, 0, 0, 0.2); }
+            .key.C { background: #1b67cf; }
+            .key.D { background: #edea15; }
+            .key.E { background: #ea2525; }
+            .key.F span { color: #333; }
+            .key.G { background: #269428; }
+            .key.A { background: #ef7320; }
+            .key.C span:after { content: "C"; }
+            .key.D span:after { content: "D"; }
+            .key.E span:after { content: "E"; }
+            .key.F span:after { content: "F"; }
+            .key.G span:after { content: "G"; }
+            .key.A span:after { content: "A"; }
+
+            @media (max-width: 1023px) {
+                .key.o5 { display: none; }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root" touch-action="none"></div>
+    </body>
+</html>
