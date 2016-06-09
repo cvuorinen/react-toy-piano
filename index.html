@@ -2,29 +2,66 @@
     <head>
         <title>Piano</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <script src="https://npmcdn.com/tone@0.6.1/build/Tone.min.js"></script>
         <script src="https://npmcdn.com/react-towel@2/umd/react-towel.js"></script>
         <script src="https://code.jquery.com/pep/0.4.1/pep.js"></script>
         <script type="text/babel">
-            const Notes = React.createClass({
-                getInitialState: function () {
-                    return {
-                        current: 0,
-                        notes: ['ukko-nooa.png', 'tahtonen.jpg']
+            class Score extends React.Component {
+                constructor(props) {
+                    super(props)
+                    this.songs = [
+                        { name: 'Twinkle', score: [
+                            ['C4,4', 'C4,4', 'G4,4', 'G4,4', 'A4,4', 'A4,4', 'G4,2'],
+                            ['F4,4', 'F4,4', 'E4,4', 'E4,4', 'D4,4', 'D4,4', 'C4,2'],
+                            ['G4,4', 'G4,4', 'F4,4', 'F4,4', 'E4,4', 'E4,4', 'D4,2'],
+                            ['G4,4', 'G4,4', 'F4,4', 'F4,4', 'E4,4', 'E4,4', 'D4,2'],
+                            ['C4,4', 'C4,4', 'G4,4', 'G4,4', 'A4,4', 'A4,4', 'G4,2'],
+                            ['F4,4', 'F4,4', 'E4,4', 'E4,4', 'D4,4', 'D4,4', 'C4,2'],
+                        ]},
+                        { name: 'Noa', score: [
+                            ['C4,4', 'C4,4', 'C4,4', 'E4,4', 'D4,4', 'D4,4', 'D4,4', 'F4,4'],
+                            ['E4,4', 'E4,4', 'D4,4', 'D4,4', 'C4,2'],
+                            ['E4,4', 'E4,4', 'E4,4', 'E4,4', 'G4,2', 'F4,2'],
+                            ['D4,4', 'D4,4', 'D4,4', 'D4,4', 'F4,2', 'E4,2'],
+                            ['C4,4', 'C4,4', 'C4,4', 'E4,4', 'D4,4', 'D4,4', 'D4,4', 'F4,4'],
+                            ['E4,4', 'E4,4', 'D4,4', 'D4,4', 'C4,2'],
+                        ]}
+                    ]
+                    this.state = {
+                        current: 0
                     }
-                },
-                click: function () {
-                    const next = this.state.current + 1 < this.state.notes.length
+                }
+                click() {
+                    const next = this.state.current + 1 < this.songs.length
                         ? this.state.current + 1
                         : 0;
-                    this.setState({ current: next, notes: this.state.notes })
-                },
-                render: function () {
-                    return <div className="notes">
-                            <img src={this.state.notes[this.state.current]} onClick={this.click} />
-                        </div>
+                    this.setState({ current: next })
                 }
-            })
+                getNoteClassName(noteWithTime) {
+                    let note, time;
+                    [note, time] = noteWithTime.split(',')
+                    let classes = ['note', note, note[0], 't' + time]
+
+                    return classes.join(' ')
+                }
+                render() {
+                    let clef = <note><span className="note clef" /></note>
+                    let song = this.songs[this.state.current].score
+                    let scoreList = song.map((score, index) =>
+                        <div className="score" onClick={this.click.bind(this)}>
+                            {(index === 0) ? clef : null}
+                            {score.map(note =>
+                                <note><span className={this.getNoteClassName(note)}/></note>
+                            )}
+                        </div>
+                    )
+
+                    return <div className="sheet">{scoreList}</div>
+                }
+            }
 
             class Piano extends React.Component {
                 constructor(props) {
@@ -38,21 +75,15 @@
                     this.synth.triggerRelease()
                 }
                 render() {
-                    return <div className="piano">
-                            <Key onPress={this.play.bind(this)} onRelease={this.release.bind(this)} note="C4" />
-                            <Key onPress={this.play.bind(this)} onRelease={this.release.bind(this)} note="D4" />
-                            <Key onPress={this.play.bind(this)} onRelease={this.release.bind(this)} note="E4" />
-                            <Key onPress={this.play.bind(this)} onRelease={this.release.bind(this)} note="F4" />
-                            <Key onPress={this.play.bind(this)} onRelease={this.release.bind(this)} note="G4" />
-                            <Key onPress={this.play.bind(this)} onRelease={this.release.bind(this)} note="A4" />
+                    let keys = ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'C5', 'D5', 'E5', 'F5', 'G5', 'A5']
+                    let keyList = keys.map(key =>
+                        <Key onPress={this.play.bind(this)} onRelease={this.release.bind(this)} note={key} />
+                    )
 
-                            <Key onPress={this.play.bind(this)} onRelease={this.release.bind(this)} note="C5" />
-                            <Key onPress={this.play.bind(this)} onRelease={this.release.bind(this)} note="D5" />
-                            <Key onPress={this.play.bind(this)} onRelease={this.release.bind(this)} note="E5" />
-                            <Key onPress={this.play.bind(this)} onRelease={this.release.bind(this)} note="F5" />
-                            <Key onPress={this.play.bind(this)} onRelease={this.release.bind(this)} note="G5" />
-                            <Key onPress={this.play.bind(this)} onRelease={this.release.bind(this)} note="A5" />
-                        </div>
+                    return <div className="piano"
+                                ref={node => node && node.setAttribute('touch-action', 'none')}>
+                                {keyList}
+                            </div>
                 }
             }
 
@@ -97,12 +128,13 @@
             });
 
             ReactDOM.render(
-                <container><Notes /><Piano /></container>,
+                <container><Score /><Piano /></container>,
                 document.getElementById('root')
             )
         </script>
         <style type="text/css">
             @import url(http://fonts.googleapis.com/css?family=Open+Sans);
+            @font-face { font-family: FreeSerif; src: url(FreeSerif.woff); }
             html, body { height: 100%; margin: 0; }
             container { height: 100%; display: flex; flex-direction: column; }
             container > * { flex: 1 100%; }
@@ -117,8 +149,8 @@
                 border: 2px solid #333;
                 border-top: none;
                 border-radius: 1vw;
-                border-bottom-right-radius: 3vw;
-                border-bottom-left-radius: 3vw;
+                border-bottom-right-radius: 2vw;
+                border-bottom-left-radius: 2vw;
                 margin-bottom: 1vh;
             }
             .key span { position: absolute; bottom: 2vh; left: 0; right: 0;
@@ -138,13 +170,54 @@
             .key.F span:after { content: "F"; }
             .key.G span:after { content: "G"; }
             .key.A span:after { content: "A"; }
-
             @media (max-width: 1023px) {
                 .key.o5 { display: none; }
             }
+
+            .sheet { display: flex; flex-direction: row; flex-wrap: wrap;
+                align-content: flex-start; padding: 0 10px; overflow: auto; }
+            .score {
+                position: relative;
+                height: 50px;
+                margin: 18px 0;
+                margin-right: -1px;
+                border: 1px solid #000;
+                display: flex; flex-direction: row;
+            }
+            .score:first-child { border-left-width: 4px; }
+            .score:last-child { border-right-width: 4px; }
+            .score:before { content: ""; position: absolute;
+                top: 25%; bottom: 25%; left: 0; right: 0;
+                border: 1px solid #000; border-left: none; border-right: none;
+            }
+            .score:after { content: ""; position: absolute; top: 50%;
+                left: 0; right: 0; border-top: 1px solid #000;
+            }
+            .score > note { flex: 1 100%; }
+            note { font-size: 70px; font-family: FreeSerif; position: relative; padding: 0 20px; }
+            @media (max-width: 767px) {
+                note { padding: 0 3vw; }
+            }
+            .note { position: absolute; height: 100%; line-height: 100%; bottom: 0; left: 0; right: 0; }
+            .note:after { position: absolute; height: 200%; line-height: 200%; bottom: 0; left: 0; right: 0; text-align: center; }
+            .note.t4:after { content: "\2669"; } /* quarter note */
+            .note.t2:after { content: "\1d15e"; } /* half note */
+            .note.clef:after { content: "\1d11e"; font-size: 80%; bottom: -30%; }
+            .note.C { color: #1b67cf; }
+            .note.D { color: #edea15; }
+            .note.E { color: #ea2525; }
+            .note.F { color: #aaa; }
+            .note.G { color: #269428; }
+            .note.A { color: #ef7320; }
+            .note.C4 { bottom: -50%; }
+            .note.D4 { bottom: -37%; }
+            .note.E4 { bottom: -25%; }
+            .note.F4 { bottom: -13%; }
+            .note.G4 { bottom: 0; }
+            .note.A4 { bottom: 13%; }
         </style>
     </head>
     <body>
-        <div id="root" touch-action="none"></div>
+        <div id="root"></div>
     </body>
 </html>
