@@ -9,11 +9,11 @@
         <script src="https://npmcdn.com/react-towel@2/umd/react-towel.js"></script>
         <script src="https://code.jquery.com/pep/0.4.1/pep.js"></script>
         <script type="text/babel">
-            class Score extends React.Component {
+            class App extends React.Component {
                 constructor(props) {
                     super(props)
                     this.songs = [
-                        { name: 'Twinkle', score: [
+                        { name: '\u2605 Twinkle', score: [
                             ['C4,4', 'C4,4', 'G4,4', 'G4,4', 'A4,4', 'A4,4', 'G4,2'],
                             ['F4,4', 'F4,4', 'E4,4', 'E4,4', 'D4,4', 'D4,4', 'C4,2'],
                             ['G4,4', 'G4,4', 'F4,4', 'F4,4', 'E4,4', 'E4,4', 'D4,2'],
@@ -21,7 +21,7 @@
                             ['C4,4', 'C4,4', 'G4,4', 'G4,4', 'A4,4', 'A4,4', 'G4,2'],
                             ['F4,4', 'F4,4', 'E4,4', 'E4,4', 'D4,4', 'D4,4', 'C4,2'],
                         ]},
-                        { name: 'Noa', score: [
+                        { name: '\uD83D\uDEB6 Noa', score: [
                             ['C4,4', 'C4,4', 'C4,4', 'E4,4', 'D4,4', 'D4,4', 'D4,4', 'F4,4'],
                             ['E4,4', 'E4,4', 'D4,4', 'D4,4', 'C4,2'],
                             ['E4,4', 'E4,4', 'E4,4', 'E4,4', 'G4,2', 'F4,2'],
@@ -30,16 +30,36 @@
                             ['E4,4', 'E4,4', 'D4,4', 'D4,4', 'C4,2'],
                         ]}
                     ]
+
                     this.state = {
-                        current: 0
+                        song: this.songs[0]
                     }
                 }
-                click() {
-                    const next = this.state.current + 1 < this.songs.length
-                        ? this.state.current + 1
+                nextSong() {
+                    const currentIndex = this.songs.indexOf(this.state.song)
+                    const next = currentIndex + 1 < this.songs.length
+                        ? currentIndex + 1
                         : 0;
-                    this.setState({ current: next })
+                    this.setState({ song: this.songs[next] })
                 }
+                render() {
+                    return <container>
+                            <Score song={this.state.song} onNextSong={this.nextSong.bind(this)} />
+                            <Settings song={this.state.song} onNextSong={this.nextSong.bind(this)} />
+                            <Piano />
+                        </container>
+                }
+            }
+
+            class Settings extends React.Component {
+                render() {
+                    return <div className="settings">
+                            <span onClick={this.props.onNextSong}>Song: <span className="song">{this.props.song.name}</span></span>
+                        </div>
+                }
+            }
+
+            class Score extends React.Component {
                 getNoteClassName(noteWithTime) {
                     let note, time;
                     [note, time] = noteWithTime.split(',')
@@ -49,9 +69,8 @@
                 }
                 render() {
                     let clef = <note><span className="note clef" /></note>
-                    let song = this.songs[this.state.current].score
-                    let scoreList = song.map((score, index) =>
-                        <div className="score" onClick={this.click.bind(this)}>
+                    let scoreList = this.props.song.score.map((score, index) =>
+                        <div className="score" onClick={this.props.onNextSong}>
                             {(index === 0) ? clef : null}
                             {score.map(note =>
                                 <note><span className={this.getNoteClassName(note)}/></note>
@@ -128,18 +147,22 @@
             });
 
             ReactDOM.render(
-                <container><Score /><Piano /></container>,
+                <App />,
                 document.getElementById('root')
             )
         </script>
         <style type="text/css">
             @import url(http://fonts.googleapis.com/css?family=Open+Sans);
             @font-face { font-family: FreeSerif; src: url(FreeSerif.woff); }
-            html, body { height: 100%; margin: 0; }
+            html, body { height: 100%; margin: 0; font-family: "Open Sans",sans-serif; }
             container { height: 100%; display: flex; flex-direction: column; }
-            container > * { flex: 1 100%; }
-            .notes { text-align: center; }
-            .notes > img { max-width: 100%; max-height: 50vh; }
+            container > .sheet { flex: 1 calc(60% - 15px); }
+            container > .settings { flex: 1 30px; }
+            container > .piano { flex: 1 calc(40% - 15px); }
+
+            .settings { background: #444; color: #fff; line-height: 30px; padding: 0 3vw; }
+            .settings .song { font-family: FreeSerif; }
+
             .piano { display: flex; flex-direction: row; padding: 2vh; background: #222; }
             .piano > * { flex: 1 100%; display: block; }
             .key {
@@ -154,7 +177,7 @@
                 margin-bottom: 1vh;
             }
             .key span { position: absolute; bottom: 2vh; left: 0; right: 0;
-                text-align: center; font: 3vw "Open Sans",sans-serif;
+                text-align: center; font-size: 3vw;
                 font-weight: bold; color: white;
             }
             .key.down { margin-bottom: 0; box-shadow: inset 0 -3vh 7vw rgba(0, 0, 0, 0.2); }
@@ -197,6 +220,9 @@
             note { font-size: 70px; font-family: FreeSerif; position: relative; padding: 0 20px; }
             @media (max-width: 767px) {
                 note { padding: 0 3vw; }
+            }
+            @media (max-height: 500px) {
+                note { padding: 0 13px; }
             }
             .note { position: absolute; height: 100%; line-height: 100%; bottom: 0; left: 0; right: 0; }
             .note:after { position: absolute; height: 200%; line-height: 200%; bottom: 0; left: 0; right: 0; text-align: center; }
