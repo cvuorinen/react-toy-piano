@@ -1,0 +1,109 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+@font-face { font-family: FreeSerif; src: url(FreeSerif.woff); }
+html, body { height: 100%; margin: 0; font-family: "Open Sans",sans-serif; }
+container { height: 100%; display: flex; flex-direction: column; }
+container > .sheet { flex: 1 calc(60% - 15px); }
+container > .settings { flex: 1 30px; }
+container > .piano { flex: 1 calc(40% - 15px); }
+
+.settings { background: #444; color: #fff; line-height: 30px; padding: 0 3vw;
+    display: flex; flex-direction: row; }
+.settings > * { flex: 1 100%; }
+.settings .song { font-family: FreeSerif; }
+.settings .color-select { text-align: right; }
+.settings .color-select > div { display: inline-block; width: 20px; height: 20px;
+    margin: 2px 4px 0 4px; vertical-align: sub; border-radius: 4px; background: white; }
+
+.piano { display: flex; flex-direction: row; padding: 2vh; background: #222; }
+.piano > * { flex: 1 100%; display: block; }
+.key {
+    position: relative;
+    display: block;
+    background: white;
+    border: 2px solid #333;
+    border-top: none;
+    border-radius: 1vw;
+    border-bottom-right-radius: 2vw;
+    border-bottom-left-radius: 2vw;
+    margin-bottom: 1vh;
+}
+.key span { position: absolute; bottom: 2vh; left: 0; right: 0;
+    text-align: center; font-size: 3vw;
+    font-weight: bold; color: #333;
+}
+.key.down { margin-bottom: 0; box-shadow: inset 0 -3vh 7vw rgba(0, 0, 0, 0.2); }
+.key.C span:after { content: "C"; }
+.key.D span:after { content: "D"; }
+.key.E span:after { content: "E"; }
+.key.F span:after { content: "F"; }
+.key.G span:after { content: "G"; }
+.key.A span:after { content: "A"; }
+.key.B span:after { content: "B"; }
+@media (max-width: 1023px) {
+    .key.o5 { display: none; }
+}
+
+.sheet { display: flex; flex-direction: row; flex-wrap: wrap;
+    align-content: flex-start; padding: 0 10px; overflow: auto; }
+.score {
+    position: relative;
+    height: 50px;
+    margin: 18px 0;
+    margin-right: -1px;
+    border: 1px solid #000;
+    display: flex; flex-direction: row;
+}
+.score:first-child { border-left-width: 4px; }
+.score:last-child { border-right-width: 4px; }
+.score:before { content: ""; position: absolute;
+    top: 25%; bottom: 25%; left: 0; right: 0;
+    border: 1px solid #000; border-left: none; border-right: none;
+}
+.score:after { content: ""; position: absolute; top: 50%;
+    left: 0; right: 0; border-top: 1px solid #000;
+}
+.score > note { flex: 1 100%; }
+note { font-size: 70px; font-family: FreeSerif; position: relative; padding: 0 20px; }
+@media (max-width: 767px) {
+    note { padding: 0 3vw; }
+}
+@media (max-height: 500px) {
+    note { padding: 0 13px; }
+}
+.note { position: absolute; height: 100%; line-height: 100%; bottom: 0; left: 0; right: 0; z-index: 999; }
+.note:after { position: absolute; height: 200%; line-height: 200%; bottom: 0; left: 0; right: 0; text-align: center; }
+.note.t8:after { content: "\266A"; } /* eight note */
+.note.t4:after { content: "\2669"; } /* quarter note */
+.note.t2:after { content: "\1d15e"; } /* half note */
+.note.clef:after { content: "\1d11e"; font-size: 80%; bottom: -30%; }
+.note.C4 { bottom: -50%; }
+.note.D4 { bottom: -37%; }
+.note.E4 { bottom: -25%; }
+.note.F4 { bottom: -13%; }
+.note.G4 { bottom: 0; }
+.note.A4 { bottom: 13%; }
+.note.B4 { bottom: -25%; transform: rotate(180deg); }
+.note.C5 { bottom: -13%; transform: rotate(180deg); }
+.note.D5 { bottom: 0; transform: rotate(180deg); }
+.note.E5 { bottom: 13%; transform: rotate(180deg); }
+.note.F5 { bottom: 25%; transform: rotate(180deg); }
+.note.G5 { bottom: 37%; transform: rotate(180deg); }
+
+/* color schemes */
+.settings .color-select .color-basic { background: #1b67cf; }
+.color-basic .key span { color: #fff; }
+.color-basic .key.C { background: #1b67cf; }
+.color-basic .note.C { color: #1b67cf; }
+.color-basic .key.D { background: #edea15; }
+.color-basic .note.D { color: #edea15; }
+.color-basic .key.E { background: #ea2525; }
+.color-basic .note.E { color: #ea2525; }
+.color-basic .key.F { background: #eee; }
+.color-basic .key.F span { color: #333; }
+.color-basic .note.F { color: #aaa; }
+.color-basic .key.G { background: #269428; }
+.color-basic .note.G { color: #269428; }
+.color-basic .key.A { background: #ef7320; }
+.color-basic .note.A { color: #ef7320; }
+.color-basic .key.B { background: #7f5d82; }
+.color-basic .note.B { color: #7f5d82; }
