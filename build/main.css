@@ -92,12 +92,15 @@ note { font-size: 70px; font-family: FreeSerif; position: relative; padding: 0 2
 .note.F4 { bottom: -13%; }
 .note.G4 { bottom: 0; }
 .note.A4 { bottom: 13%; }
-.note.B4 { bottom: -25%; -webkit-transform:  rotate(180deg); transform: rotate(180deg); }
-.note.C5 { bottom: -13%; -webkit-transform:  rotate(180deg); transform: rotate(180deg); }
-.note.D5 { bottom: 0; -webkit-transform:  rotate(180deg); transform: rotate(180deg); }
-.note.E5 { bottom: 13%; -webkit-transform:  rotate(180deg); transform: rotate(180deg); }
-.note.F5 { bottom: 25%; -webkit-transform:  rotate(180deg); transform: rotate(180deg); }
-.note.G5 { bottom: 37%; -webkit-transform:  rotate(180deg); transform: rotate(180deg); }
+.note.B4, .note.C5, .note.D5,
+.note.E5, .note.F5, .note.G5 { margin-right: -50%;
+    -webkit-transform:  rotate(180deg); transform: rotate(180deg); }
+.note.B4 { bottom: -25%; }
+.note.C5 { bottom: -13%; }
+.note.D5 { bottom: 0; }
+.note.E5 { bottom: 13%; }
+.note.F5 { bottom: 25%; }
+.note.G5 { bottom: 37%; }
 
 /* color schemes */
 .settings .color-select .color-basic { background: #1b67cf; }
