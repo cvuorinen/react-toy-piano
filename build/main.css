@@ -1,6 +1,13 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans);
 @font-face { font-family: FreeSerif; src: url(FreeSerif.woff); }
 html, body { height: 100%; margin: 0; font-family: "Open Sans",sans-serif; }
+
+.overlay { position: absolute; top: 0; left: 0; bottom: 0; right: 0; background: rgba(0, 0, 0, 0.8); z-index: 9999; }
+.overlay a { position: absolute; top: 50%; left: 50%;
+  -webkit-transform: translate(-50%, -50%); transform: translateY(-50%, -50%);
+  padding: 5vh 7vw; border-radius: 10px; background-color: #1b67cf; color: #fff;
+  text-decoration: none; font-size: 200%; font-weight: bold; }
+
 container { height: 100%; display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column; }
 container > .sheet { -webkit-flex: 1 calc(60% - 15px); flex: 1 calc(60% - 15px); }
 container > .settings { -webkit-flex: 1 30px; flex: 1 30px; }

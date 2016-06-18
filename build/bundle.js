@@ -58,7 +58,6 @@
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(38);
-	//const Tone = require('Tone')
 
 	var App = (function (_React$Component) {
 	    _inherits(App, _React$Component);
@@ -105,8 +104,52 @@
 	    return App;
 	})(React.Component);
 
-	var Settings = (function (_React$Component2) {
-	    _inherits(Settings, _React$Component2);
+	var IosOverlay = (function (_React$Component2) {
+	    _inherits(IosOverlay, _React$Component2);
+
+	    function IosOverlay(props) {
+	        _classCallCheck(this, IosOverlay);
+
+	        _get(Object.getPrototypeOf(IosOverlay.prototype), 'constructor', this).call(this, props);
+
+	        // overlay only needed for iOS
+	        this.state = { showOverlay: /iPhone|iPad|iPod/i.test(navigator.userAgent) };
+	    }
+
+	    _createClass(IosOverlay, [{
+	        key: 'click',
+	        value: function click() {
+	            // for some reason apple does not allow to trigger webaudio on touchstart
+	            // so this is a workaround to trigger some audio with touchend, after that it works with touchstart also
+	            // for more info on wy this is needed, see http://www.holovaty.com/writing/ios9-web-audio/
+	            // and https://github.com/Tonejs/Tone.js/issues/67
+	            Tone.startMobile();
+	            this.setState({ showOverlay: false });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            if (!this.state.showOverlay) {
+	                return null;
+	            }
+
+	            return React.createElement(
+	                'div',
+	                { className: 'overlay', onClick: this.click.bind(this) },
+	                React.createElement(
+	                    'a',
+	                    { onClick: this.click.bind(this) },
+	                    'START'
+	                )
+	            );
+	        }
+	    }]);
+
+	    return IosOverlay;
+	})(React.Component);
+
+	var Settings = (function (_React$Component3) {
+	    _inherits(Settings, _React$Component3);
 
 	    function Settings() {
 	        _classCallCheck(this, Settings);
@@ -153,8 +196,8 @@
 	    return Settings;
 	})(React.Component);
 
-	var Score = (function (_React$Component3) {
-	    _inherits(Score, _React$Component3);
+	var Score = (function (_React$Component4) {
+	    _inherits(Score, _React$Component4);
 
 	    function Score() {
 	        _classCallCheck(this, Score);
@@ -215,8 +258,8 @@
 	    return Score;
 	})(React.Component);
 
-	var Piano = (function (_React$Component4) {
-	    _inherits(Piano, _React$Component4);
+	var Piano = (function (_React$Component5) {
+	    _inherits(Piano, _React$Component5);
 
 	    function Piano(props) {
 	        _classCallCheck(this, Piano);
@@ -306,7 +349,12 @@
 	    }
 	});
 
-	ReactDOM.render(React.createElement(App, null), document.getElementById('root'));
+	ReactDOM.render(React.createElement(
+	    'div',
+	    null,
+	    React.createElement(IosOverlay, null),
+	    React.createElement(App, null)
+	), document.getElementById('root'));
 
 /***/ },
 /* 1 */

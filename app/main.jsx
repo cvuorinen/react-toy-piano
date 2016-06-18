@@ -63,6 +63,32 @@ class App extends React.Component {
     }
 }
 
+class IosOverlay extends React.Component {
+    constructor(props) {
+        super(props)
+
+        // overlay only needed for iOS
+        this.state = { showOverlay: /iPhone|iPad|iPod/i.test(navigator.userAgent) }
+    }
+    click() {
+        // for some reason apple does not allow to trigger webaudio on touchstart
+        // so this is a workaround to trigger some audio with touchend, after that it works with touchstart also
+        // for more info on wy this is needed, see http://www.holovaty.com/writing/ios9-web-audio/
+        // and https://github.com/Tonejs/Tone.js/issues/67
+        Tone.startMobile()
+        this.setState({ showOverlay: false })
+    }
+    render() {
+        if (!this.state.showOverlay) {
+            return null
+        }
+
+        return <div className="overlay" onClick={this.click.bind(this)}>
+                <a onClick={this.click.bind(this)}>START</a>
+            </div>
+    }
+}
+
 class Settings extends React.Component {
     render() {
         let selectColor = (color) => () => this.props.onSelectColor(color)
@@ -165,6 +191,6 @@ const Key = React.createClass({
 });
 
 ReactDOM.render(
-    <App />,
+    <div><IosOverlay /><App /></div>,
     document.getElementById('root')
 )
