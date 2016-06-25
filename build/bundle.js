@@ -67,7 +67,7 @@
 
 	        _get(Object.getPrototypeOf(App.prototype), 'constructor', this).call(this, props);
 	        this.songs = [{ name: '★ Twinkle', score: [['C4,4', 'C4,4', 'G4,4', 'G4,4', 'A4,4', 'A4,4', 'G4,2'], ['F4,4', 'F4,4', 'E4,4', 'E4,4', 'D4,4', 'D4,4', 'C4,2'], ['G4,4', 'G4,4', 'F4,4', 'F4,4', 'E4,4', 'E4,4', 'D4,2'], ['G4,4', 'G4,4', 'F4,4', 'F4,4', 'E4,4', 'E4,4', 'D4,2'], ['C4,4', 'C4,4', 'G4,4', 'G4,4', 'A4,4', 'A4,4', 'G4,2'], ['F4,4', 'F4,4', 'E4,4', 'E4,4', 'D4,4', 'D4,4', 'C4,2']] }, { name: '🚶 Noa', score: [['C4,4', 'C4,4', 'C4,4', 'E4,4', 'D4,4', 'D4,4', 'D4,4', 'F4,4'], ['E4,4', 'E4,4', 'D4,4', 'D4,4', 'C4,2'], ['E4,4', 'E4,4', 'E4,4', 'E4,4', 'G4,2', 'F4,2'], ['D4,4', 'D4,4', 'D4,4', 'D4,4', 'F4,2', 'E4,2'], ['C4,4', 'C4,4', 'C4,4', 'E4,4', 'D4,4', 'D4,4', 'D4,4', 'F4,4'], ['E4,4', 'E4,4', 'D4,4', 'D4,4', 'C4,2']] }, { name: '🎂 Birthday', score: [['D4,8', 'D4,8', 'E4,4', 'D4,4', 'G4,4', 'F4,2'], ['D4,8', 'D4,8', 'E4,4', 'D4,4', 'A4,4', 'G4,2'], ['D4,8', 'D4,8', 'D5,4', 'B4,4', 'G4,4', 'F4,4', 'E4,4'], ['C5,8', 'C5,8', 'B4,4', 'G4,4', 'A4,4', 'G4,2']] }, { name: '♫ Do-Re-Mi', score: [['C4,4', 'D4,4', 'E4,4', 'F4,4', 'G4,4', 'A4,4'], ['B4,4', 'C5,4', 'D5,4', 'E5,4', 'F5,4', 'G5,4'], ['G5,4', 'F5,4', 'E5,4', 'D5,4', 'C5,4', 'B4,4'], ['A4,4', 'G4,4', 'F4,4', 'E4,4', 'D4,4', 'C4,4']] }];
-	        this.colorSchemes = ['basic', 'plain'];
+	        this.colorSchemes = ['basic', 'plain', 'piano'];
 
 	        this.state = {
 	            song: this.songs[0],
@@ -283,7 +283,7 @@
 	        value: function render() {
 	            var _this3 = this;
 
-	            var keys = ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5', 'D5', 'E5', 'F5', 'G5'];
+	            var keys = ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5', 'D5', 'E5', 'F5', 'G5', 'A5'];
 	            var keyList = keys.map(function (key) {
 	                return React.createElement(Key, { onPress: _this3.play.bind(_this3), onRelease: _this3.release.bind(_this3), note: key });
 	            });

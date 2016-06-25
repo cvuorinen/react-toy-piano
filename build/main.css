@@ -121,3 +121,22 @@ note { font-size: 70px; font-family: FreeSerif; position: relative; padding: 0 2
 .color-basic .note.A { color: #ef7320; }
 .color-basic .key.B { background: #7f5d82; }
 .color-basic .note.B { color: #7f5d82; }
+
+/* Piano color scheme */
+.settings .color-select .color-piano { position: relative; }
+.settings .color-select .color-piano:after,
+.color-piano .key:before,
+.color-piano .key:after  { content: ""; position: absolute; top: 0; height: 20vh; background: #333; }
+.settings .color-select .color-piano:after { right: 0; height: 60%; width: 50%;
+    border-bottom-left-radius: .5vw; border-top-right-radius: 4px; }
+.color-piano .key span { color: transparent; }
+.color-piano .key.D:before,
+.color-piano .key.E:before,
+.color-piano .key.G:before,
+.color-piano .key.A:before,
+.color-piano .key.B:before { left: 0; width: 30%; border-bottom-right-radius: 1vw; }
+.color-piano .key.C:after,
+.color-piano .key.D:after,
+.color-piano .key.F:after,
+.color-piano .key.G:after,
+.color-piano .key.A:after { right: 0; width: 30%; border-bottom-left-radius: 1vw; }

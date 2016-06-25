@@ -35,7 +35,7 @@ class App extends React.Component {
             ]}
         ]
         this.colorSchemes = [
-            'basic', 'plain'
+            'basic', 'plain', 'piano'
         ]
 
         this.state = {
@@ -137,7 +137,7 @@ class Piano extends React.Component {
         this.synth.triggerRelease()
     }
     render() {
-        let keys = ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5', 'D5', 'E5', 'F5', 'G5']
+        let keys = ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5', 'D5', 'E5', 'F5', 'G5', 'A5']
         let keyList = keys.map(key =>
             <Key onPress={this.play.bind(this)} onRelease={this.release.bind(this)} note={key} />
         )
