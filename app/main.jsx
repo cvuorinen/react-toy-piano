@@ -35,7 +35,7 @@ class App extends React.Component {
             ]}
         ]
         this.colorSchemes = [
-            'basic', 'plain', 'piano'
+            'basic', 'ruby', 'plain', 'piano'
         ]
 
         this.state = {
