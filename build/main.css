@@ -122,7 +122,7 @@ note { font-size: 70px; font-family: FreeSerif; position: relative; padding: 0 2
 .color-basic .key.B { background: #7f5d82; }
 .color-basic .note.B { color: #7f5d82; }
 
-.settings .color-select .color-ruby { background: #e23b1d; }
+.settings .color-select .color-ruby { background: #ec1622; }
 .color-ruby .key span { color: #fff; }
 .color-ruby .key.C { background: #b317e8; }
 .color-ruby .note.C { color: #b317e8; }
@@ -130,14 +130,14 @@ note { font-size: 70px; font-family: FreeSerif; position: relative; padding: 0 2
 .color-ruby .note.D { color: #1efcf1; }
 .color-ruby .key.E { background: #1efc7e; }
 .color-ruby .note.E { color: #1efc7e; }
-.color-ruby .key.F { background: #fc1ed0; }
-.color-ruby .note.F { color: #fc1ed0; }
-.color-ruby .key.G { background: #e23b1d; }
-.color-ruby .note.G { color: #e23b1d; }
+.color-ruby .key.F { background: #ff37d7; }
+.color-ruby .note.F { color: #ff37d7; }
+.color-ruby .key.G { background: #ec1622; }
+.color-ruby .note.G { color: #ec1622; }
 .color-ruby .key.A { background: #444; }
 .color-ruby .note.A { color: #444; }
-.color-ruby .key.B { background: #ff882d; }
-.color-ruby .note.B { color: #ff882d; }
+.color-ruby .key.B { background: #ffa024; }
+.color-ruby .note.B { color: #ffa024; }
 
 /* Piano color scheme */
 .settings .color-select .color-piano { position: relative; }
