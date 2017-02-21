@@ -77,12 +77,13 @@ class App extends React.Component {
             ]}*/
         ]
         this.colorSchemes = [
-            'basic', 'ruby', 'plain', 'piano'
+            'basic', 'ruby', 'plain'
         ]
 
         this.state = {
             song: this.songs[0],
-            color: this.colorSchemes[0]
+            color: this.colorSchemes[0],
+            labels: true
         }
     }
     nextSong() {
@@ -90,16 +91,24 @@ class App extends React.Component {
         const next = currentIndex + 1 < this.songs.length
             ? currentIndex + 1
             : 0;
-        this.setState({ song: this.songs[next], color: this.state.color })
+        this.setState({ song: this.songs[next], color: this.state.color, labels: this.state.labels })
     }
     selectColor(newColor) {
-        this.setState({ song: this.state.song, color: newColor })
+        this.setState({ song: this.state.song, color: newColor, labels: this.state.labels })
+    }
+    toggleLabels() {
+        this.setState({ song: this.state.song, color: this.state.color, labels: !this.state.labels })
+    }
+    getClassName() {
+        return 'color-' + this.state.color
+            + ' labels-' + (this.state.labels ? 'letters' : 'piano')
     }
     render() {
-        return <container className={'color-' + this.state.color}>
+        return <container className={this.getClassName()}>
                 <Score song={this.state.song} onNextSong={this.nextSong.bind(this)} />
                 <Settings song={this.state.song} onNextSong={this.nextSong.bind(this)}
-                            colorSchemes={this.colorSchemes} onSelectColor={this.selectColor.bind(this)} />
+                            colorSchemes={this.colorSchemes} onSelectColor={this.selectColor.bind(this)}
+                           onToggleLabels={this.toggleLabels.bind(this)} />
                 <Piano />
             </container>
     }
@@ -139,7 +148,10 @@ class Settings extends React.Component {
         )
         return <div className="settings">
                 <div onClick={this.props.onNextSong}>Song: <span className="song">{this.props.song.name}</span></div>
-                <div className="color-select">Color: {colorList}</div>
+                <div className="color-select">
+                    Color: {colorList}
+                    <div className="labels-piano" onClick={this.props.onToggleLabels}></div>
+                </div>
             </div>
     }
 }

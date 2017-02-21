@@ -139,21 +139,21 @@ note { font-size: 70px; font-family: FreeSerif; position: relative; padding: 0 2
 .color-ruby .key.B { background: #ffa024; }
 .color-ruby .note.B { color: #ffa024; }
 
-/* Piano color scheme */
-.settings .color-select .color-piano { position: relative; }
-.settings .color-select .color-piano:after,
-.color-piano .key:before,
-.color-piano .key:after  { content: ""; position: absolute; top: 0; height: 20vh; background: #333; }
-.settings .color-select .color-piano:after { right: 0; height: 60%; width: 50%;
+/* Piano black keys instead of letters on keys */
+.settings .color-select .labels-piano { position: relative; }
+.settings .color-select .labels-piano:after,
+.labels-piano .key:before,
+.labels-piano .key:after  { content: ""; position: absolute; top: 0; height: 20vh; background: #333; }
+.settings .color-select .labels-piano:after { right: 0; height: 60%; width: 50%;
     border-bottom-left-radius: .5vw; border-top-right-radius: 4px; }
-.color-piano .key span { color: transparent; }
-.color-piano .key.D:before,
-.color-piano .key.E:before,
-.color-piano .key.G:before,
-.color-piano .key.A:before,
-.color-piano .key.B:before { left: 0; width: 30%; border-bottom-right-radius: 1vw; }
-.color-piano .key.C:after,
-.color-piano .key.D:after,
-.color-piano .key.F:after,
-.color-piano .key.G:after,
-.color-piano .key.A:after { right: 0; width: 30%; border-bottom-left-radius: 1vw; }
+.labels-piano .key span { color: transparent !important; }
+.labels-piano .key.D:before,
+.labels-piano .key.E:before,
+.labels-piano .key.G:before,
+.labels-piano .key.A:before,
+.labels-piano .key.B:before { left: 0; width: 30%; border-bottom-right-radius: 1vw; }
+.labels-piano .key.C:after,
+.labels-piano .key.D:after,
+.labels-piano .key.F:after,
+.labels-piano .key.G:after,
+.labels-piano .key.A:after { right: 0; width: 30%; border-bottom-left-radius: 1vw; }

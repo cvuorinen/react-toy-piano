@@ -74,11 +74,12 @@
 	            ['G5,4', 'F5,4', 'E5,4', 'D5,4', 'C5,4', 'B4,4'],
 	            ['A4,4', 'G4,4', 'F4,4', 'E4,4', 'D4,4', 'C4,4'],
 	        ]}*/
-	        this.colorSchemes = ['basic', 'ruby', 'plain', 'piano'];
+	        this.colorSchemes = ['basic', 'ruby', 'plain'];
 
 	        this.state = {
 	            song: this.songs[0],
-	            color: this.colorSchemes[0]
+	            color: this.colorSchemes[0],
+	            labels: true
 	        };
 	    }
 
@@ -87,22 +88,33 @@
 	        value: function nextSong() {
 	            var currentIndex = this.songs.indexOf(this.state.song);
 	            var next = currentIndex + 1 < this.songs.length ? currentIndex + 1 : 0;
-	            this.setState({ song: this.songs[next], color: this.state.color });
+	            this.setState({ song: this.songs[next], color: this.state.color, labels: this.state.labels });
 	        }
 	    }, {
 	        key: 'selectColor',
 	        value: function selectColor(newColor) {
-	            this.setState({ song: this.state.song, color: newColor });
+	            this.setState({ song: this.state.song, color: newColor, labels: this.state.labels });
+	        }
+	    }, {
+	        key: 'toggleLabels',
+	        value: function toggleLabels() {
+	            this.setState({ song: this.state.song, color: this.state.color, labels: !this.state.labels });
+	        }
+	    }, {
+	        key: 'getClassName',
+	        value: function getClassName() {
+	            return 'color-' + this.state.color + ' labels-' + (this.state.labels ? 'letters' : 'piano');
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return React.createElement(
 	                'container',
-	                { className: 'color-' + this.state.color },
+	                { className: this.getClassName() },
 	                React.createElement(Score, { song: this.state.song, onNextSong: this.nextSong.bind(this) }),
 	                React.createElement(Settings, { song: this.state.song, onNextSong: this.nextSong.bind(this),
-	                    colorSchemes: this.colorSchemes, onSelectColor: this.selectColor.bind(this) }),
+	                    colorSchemes: this.colorSchemes, onSelectColor: this.selectColor.bind(this),
+	                    onToggleLabels: this.toggleLabels.bind(this) }),
 	                React.createElement(Piano, null)
 	            );
 	        }
@@ -194,7 +206,8 @@
 	                    'div',
 	                    { className: 'color-select' },
 	                    'Color: ',
-	                    colorList
+	                    colorList,
+	                    React.createElement('div', { className: 'labels-piano', onClick: this.props.onToggleLabels })
 	                )
 	            );
 	        }
