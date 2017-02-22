@@ -1,0 +1,14 @@
+CACHE MANIFEST
+# 2017-02-22:v1
+
+# Explicitly cached entries
+index.html
+build/bundle.js
+build/main.css
+build/FreeSerif.woff
+https://code.jquery.com/pep/0.4.1/pep.js
+https://unpkg.com/tone@0.6.1/build/Tone.min.js
+
+# All other resources (e.g. sites) require the user to be online.
+NETWORK:
+*
