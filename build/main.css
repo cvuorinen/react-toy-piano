@@ -82,7 +82,7 @@ note { font-size: 70px; font-family: FreeSerif; position: relative; padding: 0 2
     note { padding: 0 13px; }
 }
 .note { position: absolute; height: 100%; line-height: 100%; bottom: 0; left: 0; right: 0; z-index: 999; }
-.note:after { position: absolute; height: 200%; line-height: 200%; bottom: 0; left: 0; right: 0; text-align: center; }
+.note:after { position: absolute; height: 200%; line-height: 200%; bottom: 0; left: 10%; right: 0; }
 .note.t8:after { content: "\266A"; } /* eight note */
 .note.t4:after { content: "\2669"; } /* quarter note */
 .note.t2:after { content: "\1d15e"; } /* half note */
@@ -94,8 +94,7 @@ note { font-size: 70px; font-family: FreeSerif; position: relative; padding: 0 2
 .note.G4 { bottom: 0; }
 .note.A4 { bottom: 13%; }
 .note.B4, .note.C5, .note.D5,
-.note.E5, .note.F5, .note.G5 { margin-right: -50%;
-    -webkit-transform:  rotate(180deg); transform: rotate(180deg); }
+.note.E5, .note.F5, .note.G5 { -webkit-transform:  rotate(180deg); transform: rotate(180deg); }
 .note.B4 { bottom: -25%; }
 .note.C5 { bottom: -13%; }
 .note.D5 { bottom: 0; }
