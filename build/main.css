@@ -30,7 +30,7 @@ container > .piano { -webkit-flex: 1 calc(40% - 15px); flex: 1 calc(40% - 15px);
     background: white;
     border: 2px solid #333;
     border-top: none;
-    border-radius: 1vw;
+    border-radius: 4px;
     border-bottom-right-radius: 2vw;
     border-bottom-left-radius: 2vw;
     margin-bottom: 1vh;
@@ -88,6 +88,9 @@ note { font-size: 70px; font-family: FreeSerif; position: relative; padding: 0 2
 .note.t2:after { content: "\1d15e"; } /* half note */
 .note.clef:after { content: "\1d11e"; font-size: 80%; bottom: -30%; }
 .note.C4 { bottom: -50%; }
+.note.C4:before { content: ""; position: absolute; top: 75%;
+    left: 5%; width: 25px; border-top: 1px solid #000;
+}
 .note.D4 { bottom: -37%; }
 .note.E4 { bottom: -25%; }
 .note.F4 { bottom: -13%; }
