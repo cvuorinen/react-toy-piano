@@ -91,13 +91,13 @@ class App extends React.Component {
         const next = currentIndex + 1 < this.songs.length
             ? currentIndex + 1
             : 0;
-        this.setState({ song: this.songs[next], color: this.state.color, labels: this.state.labels })
+        this.setState({ ...this.state, song: this.songs[next] })
     }
     selectColor(newColor) {
-        this.setState({ song: this.state.song, color: newColor, labels: this.state.labels })
+        this.setState({ ...this.state, color: newColor })
     }
     toggleLabels() {
-        this.setState({ song: this.state.song, color: this.state.color, labels: !this.state.labels })
+        this.setState({ ...this.state, labels: !this.state.labels })
     }
     getClassName() {
         return 'color-' + this.state.color
@@ -124,7 +124,7 @@ class IosOverlay extends React.Component {
     click() {
         // for some reason apple does not allow to trigger webaudio on touchstart
         // so this is a workaround to trigger some audio with touchend, after that it works with touchstart also
-        // for more info on wy this is needed, see http://www.holovaty.com/writing/ios9-web-audio/
+        // for more info on why this is needed, see http://www.holovaty.com/writing/ios9-web-audio/
         // and https://github.com/Tonejs/Tone.js/issues/67
         Tone.startMobile()
         this.setState({ showOverlay: false })
