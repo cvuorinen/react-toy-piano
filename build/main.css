@@ -38,7 +38,11 @@ container > .piano { -webkit-flex: 1 calc(40% - 15px); flex: 1 calc(40% - 15px);
 .key span { position: absolute; bottom: 2vh; left: 0; right: 0;
     text-align: center; font-size: 3vw;
     font-weight: bold; color: #333;
+    -webkit-touch-callout: none;
     -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 .key.down { margin-bottom: 0; box-shadow: inset 0 -3vh 7vw rgba(0, 0, 0, 0.2); }
 .key.C span:after { content: "C"; }
