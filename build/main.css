@@ -90,6 +90,7 @@ note { font-size: 70px; font-family: FreeSerif; position: relative; padding: 0 2
 .note.t8:after { content: "\266A"; } /* eight note */
 .note.t4:after { content: "\2669"; } /* quarter note */
 .note.t2:after { content: "\1d15e"; } /* half note */
+.note.t1:after { content: "\1d15d"; } /* whole note */
 .note.clef:after { content: "\1d11e"; font-size: 80%; bottom: -30%; }
 .note.C4 { bottom: -50%; }
 .note.C4:before { content: ""; position: absolute; top: 75%;
