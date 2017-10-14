@@ -92,6 +92,10 @@ note { font-size: 70px; font-family: FreeSerif; position: relative; padding: 0 2
 .note.t2:after { content: "\1d15e"; } /* half note */
 .note.t1:after { content: "\1d15d"; } /* whole note */
 .note.clef:after { content: "\1d11e"; font-size: 80%; bottom: -30%; }
+.note.B3 { bottom: -63%; }
+.note.B3:before { content: ""; position: absolute; top: 75%;
+    left: 5%; width: 25px; border-top: 1px solid #000;
+}
 .note.C4 { bottom: -50%; }
 .note.C4:before { content: ""; position: absolute; top: 75%;
     left: 5%; width: 25px; border-top: 1px solid #000;

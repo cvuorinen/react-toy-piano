@@ -69,6 +69,16 @@ class App extends React.Component {
                 ['D4,8', 'C4,8', 'D4,8', 'E4,8'],
                 ['C4,2', 'null,'],
             ]},
+            { name: '\uD83D\uDC26 Little bird', score: [
+                ['D4,2', 'null,', 'A4,2', 'null,'],
+                ['G4,4', 'F4,8', 'E4,8', 'F4,4', 'D4,4'],
+                ['E4,4', 'E4,4', 'A4,4', 'null,', 'G4,8'],
+                ['F4,4', 'D4,8', 'F4,8', 'E4,2', 'null,'],
+                ['E4,8', 'F4,8', 'E4,8', 'D4,8', 'C4,4', 'B3,8', 'B3,8'],
+                ['D4,4', 'D4,4', 'E4,2', 'null,'],
+                ['A4,4', 'G4,8', 'F4,4', 'E4,8', 'F4,8'],
+                ['D4,4', 'D4,4', 'D4,4', 'null,'],
+            ]},
             { name: '\u263A Kaisla\'s song', score: [
                 ['F4,4', 'F4,4', 'G4,4', 'G4,4'],
                 ['A4,4', 'A4,8'],
@@ -211,7 +221,7 @@ class Piano extends React.Component {
         this.synth.triggerRelease()
     }
     render() {
-        let keys = ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5', 'D5', 'E5', 'F5', 'G5', 'A5']
+        let keys = ['B3', 'C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5', 'D5', 'E5', 'F5', 'G5']
         let keyList = keys.map(key =>
             <Key onPress={this.play.bind(this)} onRelease={this.release.bind(this)} note={key} />
         )
